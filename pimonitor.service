@@ -1,0 +1,14 @@
+[Unit]
+Description=Pi 5 Hardware Monitor Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/piMonitor
+ExecStart=/home/pi/piMonitor/piMonitor
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
