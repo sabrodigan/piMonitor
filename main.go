@@ -9,13 +9,17 @@ import (
 	"time"
 )
 
+// build is the GitHub commit this binary was built from, shown in the page's
+// credit line. Set with: go build -ldflags "-X main.build=$(git rev-parse --short HEAD)"
+var build = "dev"
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, nil)
+	tmpl.Execute(w, struct{ Build string }{build})
 }
 
 func latestMetricHandler(w http.ResponseWriter, r *http.Request) {

@@ -23,7 +23,7 @@ ssh -o StrictHostKeyChecking=no "$PI_USER@$PI_IP" "echo 'SSH connection successf
 echo "--------------------------------------------------"
 echo "Step 2: Building piMonitor locally for ARM64..."
 echo "--------------------------------------------------"
-GOOS=linux GOARCH=arm64 go build -o piMonitor . || {
+GOOS=linux GOARCH=arm64 go build -ldflags "-X main.build=$(git rev-parse --short HEAD)" -o piMonitor . || {
     echo "Error: Local build failed."
     exit 1
 }
